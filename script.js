@@ -36,9 +36,21 @@
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  function moveSnowBall(snowBall) {
+  function moveSnowBall(canvas, snowBall) {
     snowBall.x += snowBall.speedX;
     snowBall.y += snowBall.speedY;
+
+    if (snowBall.x > canvas.width) {
+      snowBall.x = 0;
+    } else if (snowBall.x < 0) {
+      snowBall.x = canvas.width;
+    }
+
+    if (snowBall.y > canvas.height) {
+      snowBall.y = 0;
+    } else if (snowBall.y < 0) {
+      snowBall.y = canvas.height;
+    }
   }
 
   function run() {
@@ -48,7 +60,7 @@
     setInterval(() => {
       canvasContext.clearRect(0, 0, canvas.width, canvas.height);
       snowBalls.forEach((snowBall) => drawSnowBall(canvasContext, snowBall));
-      snowBalls.forEach((snowBall) => moveSnowBall(snowBall));
+      snowBalls.forEach((snowBall) => moveSnowBall(canvas, snowBall));
     }, 50);
   }
 
